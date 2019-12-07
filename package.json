@@ -34,7 +34,9 @@
     "@angular/platform-browser": "^8.2.0",
     "@angular/platform-browser-dynamic": "^8.2.0",
     "@angular/router": "^8.2.0",
+    "@octokit/rest": "^16.35.0",
     "core-js": "^2.5.4",
+    "fs": "^0.0.1-security",
     "rxjs": "~6.4.0",
     "zone.js": "^0.9.1"
   },
@@ -51,15 +53,15 @@
     "codelyzer": "~5.0.1",
     "cypress": "3.6.1",
     "dotenv": "6.2.0",
+    "electron": "^7.0.0",
     "eslint": "6.1.0",
     "jest": "24.1.0",
     "jest-preset-angular": "7.0.0",
+    "nx-electron": "*",
     "prettier": "1.18.2",
     "ts-jest": "24.0.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
-    "typescript": "~3.5.3",
-    "nx-electron": "*",
-    "electron": "^7.0.0"
+    "typescript": "~3.5.3"
   }
 }

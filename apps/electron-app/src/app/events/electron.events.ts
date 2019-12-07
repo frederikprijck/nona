@@ -3,7 +3,7 @@
  * between the frontend to the electron backend.
  */
 
-import { app, ipcMain } from 'electron';
+import { app, ipcMain, shell } from 'electron';
 import { packageVersion } from '../constants';
 
 export default class Events {
@@ -18,6 +18,10 @@ ipcMain.handle('get-app-version', (event) => {
 
     return packageVersion;
 });
+
+ipcMain.on('openExternal', (event, url) => {
+    shell.openExternal(url);
+})
 
 // Handle App termination
 ipcMain.on('quit', (event, code) => {

@@ -1,6 +1,11 @@
-Results:
-
-
-<div *ngFor="let result of results">
-    {{result.text}}
+<div
+  *ngFor="let result of results"
+  (click)="result.select()"
+  class="result-item"
+>
+  <img class="result-item__image" [src]="result.iconUrl" />
+  <div class="result-item__content">
+    <div class="result-item__content__header">{{ result.text }}</div>
+    <div>{{ result.description }}</div>
+  </div>
 </div>

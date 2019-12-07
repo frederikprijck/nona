@@ -1,21 +1,13 @@
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
-export class Result {
-    constructor(public text: string) {}
-    select() {
-        console.log(`${this.text} selected`);
-    }
+export abstract class Result {
+  constructor(public text: string, public description: string, public iconUrl: string) {}
+  abstract select();
 }
 
-export class Plugin {
-    name: string;
-    command: string;
+export interface Plugin {
+  name: string;
+  command: string;
 
-    constructor({name, command}) {
-        this.name = name;
-        this.command = command;
-    }
-    handle(args: string): Observable<Result[]> {
-        return of([new Result(args)]);
-    }
+  handle: (args: string) => Observable<Result[]>;
 }

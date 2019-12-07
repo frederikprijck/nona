@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { PluginManager } from './plugin.manager';
 import { merge, Subject, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, debounceTime } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class CommandService {
@@ -11,9 +11,8 @@ export class CommandService {
 
   constructor(private pluginManager: PluginManager) {
     this.commandResults$ = this.commandTerm$.pipe(
-      switchMap(term =>
-        term ? this.handle(term) : of([])
-      )
+      debounceTime(200),
+      switchMap(term => (term ? this.handle(term) : of([])))
     );
   }
   process(commandTerm: string = '') {
@@ -23,10 +22,11 @@ export class CommandService {
   }
 
   private handle(term: string) {
-
     const [, command, , commandArgs] = term.match(/^([^\s]+)(\s?)(.*)/);
     const plugins = this.pluginManager.getPlugins(command);
 
-    return plugins && plugins.length ? merge(...plugins.map(plugin => plugin.handle(commandArgs))) : of([]);
+    return plugins && plugins.length
+      ? merge(...plugins.map(plugin => plugin.handle(commandArgs)))
+      : of([]);
   }
 }
